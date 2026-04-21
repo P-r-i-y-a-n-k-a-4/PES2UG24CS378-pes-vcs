@@ -137,6 +137,24 @@ int tree_from_index(ObjectID *id_out) {
     }
 
     // temporary: just return failure
-    (void)id_out;
-    return -1;
+    Tree tree;
+tree.count = 0;
+
+for (int i = 0; i < idx.count; i++) {
+    TreeEntry *entry = &tree.entries[tree.count++];
+
+    entry->mode = idx.entries[i].mode;
+
+    // extract filename (ignore directories for now)
+    const char *name = strrchr(idx.entries[i].path, '/');
+    if (name) name++;
+    else name = idx.entries[i].path;
+
+    strcpy(entry->name, name);
+    entry->hash = idx.entries[i].hash;
+}
+
+// temporary return (still incomplete)
+(void)id_out;
+return -1;
 }
