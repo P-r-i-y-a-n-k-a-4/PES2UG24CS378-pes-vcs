@@ -110,6 +110,7 @@ if (!full_data) return -1;
 
 memcpy(full_data, header, header_len);
 memcpy(full_data + header_len, data, len);
+compute_hash(full_data, total_size, id_out);
 }
 
 // Read an object from the store.
